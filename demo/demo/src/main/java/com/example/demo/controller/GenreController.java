@@ -42,5 +42,12 @@ public class GenreController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @PostMapping("/genres")
+    ResponseEntity<Genre> createGenre(@Validated @RequestBody Genre genre) throws URISyntaxException {
+        Genre result = genreRepository.save(genre);
+        //insert into table
+        return ResponseEntity.created(new URI("/api/genre" + result.getId())).body(result);
+    }
+
     
 }
