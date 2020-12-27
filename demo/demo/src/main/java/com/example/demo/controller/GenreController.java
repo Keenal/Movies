@@ -49,5 +49,11 @@ public class GenreController {
         return ResponseEntity.created(new URI("/api/genre" + result.getId())).body(result);
     }
 
+    @PutMapping("/genres/{id}")
+    ResponseEntity<Genre> updateGenre(@Validated @RequestBody Genre genre) {
+        Genre result = genreRepository.save(genre);
+        return ResponseEntity.ok().body(result);
+    }
+
     
 }
