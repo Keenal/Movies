@@ -55,5 +55,12 @@ public class GenreController {
         return ResponseEntity.ok().body(result);
     }
 
+    @DeleteMapping("/genres/{id}")
+    ResponseEntity<?> deleteGenre(@PathVariable Long id) {
+        genreRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+
+    }
+
     
 }
