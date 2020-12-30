@@ -8,17 +8,17 @@ class AppNav extends Component {
     render() {
         return (
           <div>
-            <Navbar color="light" light expand="md">
+            <Navbar color="dark" dark expand="md">
               <NavbarBrand href="/">Movies Tracker Application</NavbarBrand>
                 <Nav className="ml-auto" navbar>
                   <NavItem>
                     <NavLink href="/">Home</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="/categories">Genres</NavLink>
+                    <NavLink href="/genre">Genres</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="/expenses">Movies</NavLink>
+                    <NavLink href="/movies">Movies</NavLink>
                   </NavItem>
                 
                 </Nav>
