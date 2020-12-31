@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AppNav from './AppNav';
 
 class Genre extends Component {
     state = { 
@@ -23,7 +24,9 @@ class Genre extends Component {
             );
         
         return(
+            
             <div>
+                <AppNav/>
                 <h2>Genres</h2>
                 {
                     Genres.map( genre =>
