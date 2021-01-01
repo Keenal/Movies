@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,12 @@ public class MovieController {
     ResponseEntity<?> createMovie(@Validated @RequestBody Movies movie) throws URISyntaxException {
         Movies result = movieRepository.save(movie);
         return ResponseEntity.created(new URI("/apimvoies" + result.getId())).body(result);
+    }
+
+    @PutMapping("/movies/{id}")
+    ResponseEntity<Movies> updateMovies(@Validated @RequestBody Movies movie) {
+        Movies result = movieRepository.save(movie);
+        return ResponseEntity.ok().body(result);
     }
     
 }
