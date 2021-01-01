@@ -20,7 +20,7 @@ const AppNav = (props) => {
 
   return (
     <div>
-      <Navbar color="danger" dark expand="md">
+      <Navbar color="success" dark expand="md">
         <NavbarBrand href="/">Movies Tracking Application</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
