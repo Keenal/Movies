@@ -34,6 +34,23 @@ class Movies extends Component {
         }
     }
 
+    
+
+    async remove(id){
+        await fetch(`/api/movies/${id}` , {
+          method: 'DELETE' ,
+          headers : {
+            'Accept' : 'application/json',
+            'Content-Type' : 'application/json'
+          }
+
+        }).then(() => {
+          let updatedMovies = [...this.state.Movies].filter(i => i.id !== id);
+          this.setState({Movies : updatedMovies});
+        });
+
+    }
+
     async componentDidMount() {
         const response = await fetch('/api/genres');
         const body = await response.json();
@@ -74,7 +91,7 @@ class Movies extends Component {
                 <AppNav/> 
                 <Container>
                     {title}
-                    <Form>
+                    <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label for="title">Title</Label>
                             <Input type="text" name="title" id="title" onChange={this.handleChange}/>
