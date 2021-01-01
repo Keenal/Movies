@@ -8,29 +8,46 @@ import {
     Form,
     Input,
     Button,
+    Table,
     FormGroup,
     Container,
     Label
   } from 'reactstrap';
 
 class Movies extends Component {
-    state = { 
-        date: new Date(),
-        isLoading: true,
-        movies: [],
-        Genres: []
+    emptyItem = {
+        id: '103',
+        movieDate: new Date(),
+        descript: '',
+        personalNote: '',
+        genres: [1, 'Thriller']
+    }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            date: new Date(),
+            isLoading: true,
+            Genres: [],
+            Movies: [],
+            item: this.emptyItem
+        }
     }
 
     async componentDidMount() {
         const response = await fetch('/api/genres');
         const body = await response.json();
-        
         this.setState({Genres:body, isLoading: false})
+
+        const responseMovies = await fetch('/api/movies');
+        const bodyMovies = await responseMovies.json();
+        this.setState({Movies:bodyMovies, isLoading: false})
     }
 
     render() { 
         const title= <h3 className="pt-5">Add Movie</h3>;
-        const {Genres, isLoading} = this.state;
+        const {Genres} = this.state;
+        const {Movies, isLoading} = this.state;
 
         if(isLoading)
             return(<div>Loading...</div>)
@@ -76,6 +93,22 @@ class Movies extends Component {
                             <Button color="secondary" tag={Link} to="/" >Cancel</Button>
                         </FormGroup>
                     </Form>
+                </Container>
+                <Container>
+                    <h3>Movies List</h3>
+                    <Table className="mt-4">
+                    <thead>
+                        <tr>
+                            <th width="20%">Name</th>
+                            <th width="40%">PersonalNote</th>
+                            <th>Genre</th>
+                            <th width="10%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                    </Table>
                 </Container>
         </div>
         );
