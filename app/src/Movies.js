@@ -35,6 +35,13 @@ class Movies extends Component {
         if(isLoading)
             return(<div>Loading...</div>)
 
+    
+        let optionList = 
+            Genres.map( genre =>
+                <option id={genre.id}>
+                    {genre.name}
+                </option>)
+
         return ( 
             <div>
                 <AppNav/> 
@@ -48,12 +55,9 @@ class Movies extends Component {
 
                         <FormGroup>
                             <Label for="genre">Genre</Label>
-                            {
-                                Genres.map( genre =>
-                                    <div id={genre.id}>
-                                        {genre.name}
-                                    </div>)
-                            }
+                            <select>
+                                {optionList}
+                            </select>
                             <Input type="text" name="genre" id="genre" onChange={this.handleChange}/>
                         </FormGroup>
 

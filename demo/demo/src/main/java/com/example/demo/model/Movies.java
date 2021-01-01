@@ -25,6 +25,8 @@ public class Movies {
 
     private String descript;
 
+    private String personalNote;
+
     @ManyToOne
     private Genre genre;
 
