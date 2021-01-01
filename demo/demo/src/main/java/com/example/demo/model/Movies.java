@@ -8,6 +8,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ public class Movies {
     @ManyToOne
     private Genre genre;
 
+    @JsonIgnore
     @ManyToOne
     private User user;
 
