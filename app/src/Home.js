@@ -8,7 +8,7 @@ class Home extends Component {
             <AppNav/> 
             
             <h2 style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '80vh'}}>
-                Welcome to a persolized movie tracking app!
+                Welcome to a personalized movie tracking app!
             </h2>
         </div> );
     }
