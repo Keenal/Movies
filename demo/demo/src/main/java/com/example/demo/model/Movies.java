@@ -23,7 +23,7 @@ public class Movies {
     @Id
     private Long id;
 
-    private Instant moviedate;
+    private Instant movieDate;
 
     private String descript;
 

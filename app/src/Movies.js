@@ -59,6 +59,16 @@ class Movies extends Component {
                     {genre.name}
                 </option>)
 
+        let rows = 
+            Movies.map(movie =>
+                <tr>
+                    <td>{movie.descript}</td>
+                    <td>{movie.personalNote}</td>
+                    <td>{movie.movieDate}</td>
+                    <td>{movie.genre.name}</td>
+                    <td><Button size="sm" color="danger" onClick = { () => this.remove(movie.id)}>Delete</Button></td>
+                </tr>)
+
         return ( 
             <div>
                 <AppNav/> 
@@ -101,6 +111,7 @@ class Movies extends Component {
                         <tr>
                             <th width="20%">Name</th>
                             <th width="40%">PersonalNote</th>
+                            <th>Date</th>
                             <th>Genre</th>
                             <th width="10%">Action</th>
                         </tr>
