@@ -29,7 +29,7 @@ const AppNav = (props) => {
               <NavLink href="/">Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/genre">Genre</NavLink>
+              <NavLink href="/genres">Genre</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/movies">Movies</NavLink>

@@ -35,27 +35,27 @@ public class GenreController {
         return genreRepository.findAll(); // select * from genre
     }
 
-    @GetMapping("/genres/{id}")
+    @GetMapping("/genre/{id}")
     ResponseEntity<?> getGenre(@PathVariable Long id) {
         Optional<Genre> genre = genreRepository.findById(id);
         return genre.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/genres")
+    @PostMapping("/genre")
     ResponseEntity<Genre> createGenre(@Validated @RequestBody Genre genre) throws URISyntaxException {
         Genre result = genreRepository.save(genre);
         //insert into table
         return ResponseEntity.created(new URI("/api/genre" + result.getId())).body(result);
     }
 
-    @PutMapping("/genres/{id}")
+    @PutMapping("/genre/{id}")
     ResponseEntity<Genre> updateGenre(@Validated @RequestBody Genre genre) {
         Genre result = genreRepository.save(genre);
         return ResponseEntity.ok().body(result);
     }
 
-    @DeleteMapping("/genres/{id}")
+    @DeleteMapping("/genre/{id}")
     ResponseEntity<?> deleteGenre(@PathVariable Long id) {
         genreRepository.deleteById(id);
         return ResponseEntity.ok().build();

@@ -14,27 +14,65 @@ import {
     Label
   } from 'reactstrap';
 
+  import Moment from 'react-moment';
+
 class Movies extends Component {
     emptyItem = {
-        id: '103',
+        id: '104',
         movieDate: new Date(),
         descript: '',
         personalNote: '',
-        genres: [1, 'Thriller']
+        genre: [1, 'Thriller']
     }
 
     constructor(props) {
         super(props);
         this.state = {
             date: new Date(),
-            isLoading: true,
+            isLoading: false,
             Genres: [],
             Movies: [],
             item: this.emptyItem
         }
+
+        this.handleSubmit= this.handleSubmit.bind(this);
+        this.handleChange= this.handleChange.bind(this);
+        this.handleDateChange= this.handleDateChange.bind(this);
     }
 
-    
+    async handleSubmit(event){
+     
+        const item = this.state.item;
+      
+  
+        await fetch(`/api/movies`, {
+          method : 'POST',
+          headers : {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body : JSON.stringify(item),
+        });
+        
+        event.preventDefault();
+        this.props.history.push("/movies");
+    }
+
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        let item = {...this.state.item};
+        item[name] = value;
+        this.setState({item});
+        console.log(this.state);
+    }
+
+    handleDateChange(date) {
+        let item = {...this.state.item};
+        item.movieDate = date;
+        this.setState({item});
+     }
 
     async remove(id){
         await fetch(`/api/movies/${id}` , {
@@ -52,13 +90,16 @@ class Movies extends Component {
     }
 
     async componentDidMount() {
-        const response = await fetch('/api/genres');
-        const body = await response.json();
-        this.setState({Genres:body, isLoading: false})
+        const response= await fetch('/api/genres');
+        const body= await response.json();
+        this.setState({Genres : body , isLoading :false});
 
-        const responseMovies = await fetch('/api/movies');
-        const bodyMovies = await responseMovies.json();
-        this.setState({Movies:bodyMovies, isLoading: false})
+
+        const responseMov= await fetch('/api/movies');
+        const bodyMov = await responseMov.json();
+        this.setState({Movies : bodyMov , isLoading :false});
+        console.log(bodyMov);
+
     }
 
     render() { 
@@ -71,17 +112,18 @@ class Movies extends Component {
 
     
         let optionList = 
-            Genres.map( genre =>
-                <option id={genre.id}>
-                    {genre.name}
-                </option>)
+            Genres.map( (genre) =>
+                <option value={genre.id} key={genre.id}> 
+                            {genre.name}
+                </option>
+                )
 
         let rows = 
             Movies.map(movie =>
-                <tr>
+                <tr key={movie.id}>
                     <td>{movie.descript}</td>
                     <td>{movie.personalNote}</td>
-                    <td>{movie.movieDate}</td>
+                    <td><Moment date= {movie.movieDate} format="YYYY/MM/DD"/></td>
                     <td>{movie.genre.name}</td>
                     <td><Button size="sm" color="danger" onClick = { () => this.remove(movie.id)}>Delete</Button></td>
                 </tr>)
@@ -99,15 +141,14 @@ class Movies extends Component {
 
                         <FormGroup>
                             <Label for="genre">Genre</Label>
-                            <select>
+                            <select name="genre" onChange={this.handleChange}>
                                 {optionList}
                             </select>
-                            <Input type="text" name="genre" id="genre" onChange={this.handleChange}/>
                         </FormGroup>
 
                         <FormGroup>
                             <Label for="movieDate">Date</Label>
-                            <DatePicker selected={this.state.date} onChange={this.handleDateChange} />
+                            <DatePicker selected={this.state.item.movieDate} onChange={this.handleDateChange} />
                         </FormGroup>
 
                         <FormGroup>
