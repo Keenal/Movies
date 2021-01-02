@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Data
-@Table(name="movies")
-public class Movies {
+@Table(name="movie")
+public class Movie {
 
     @Id
     private Long id;
 
-    private Instant movieDate;
+    private Instant moviedate;
 
     private String descript;
 

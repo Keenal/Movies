@@ -4,7 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import com.example.demo.model.Movies;
+import com.example.demo.model.Movie;
 
 import com.example.demo.repository.MovieRepository;
 
@@ -28,7 +28,7 @@ public class MovieController {
     private MovieRepository movieRepository;
 
     @GetMapping("/movies")
-    List<Movies> getMovies() {
+    List<Movie> getMovies() {
         return movieRepository.findAll();
     }
 
@@ -39,14 +39,14 @@ public class MovieController {
     }
 
     @PostMapping("/movies")
-    ResponseEntity<?> createMovie(@Validated @RequestBody Movies movie) throws URISyntaxException {
-        Movies result = movieRepository.save(movie);
-        return ResponseEntity.created(new URI("/apimvoies" + result.getId())).body(result);
+    ResponseEntity<?> createMovie(@Validated @RequestBody Movie movie) throws URISyntaxException {
+        Movie result = movieRepository.save(movie);
+        return ResponseEntity.created(new URI("/api/movies" + result.getId())).body(result);
     }
 
     @PutMapping("/movies/{id}")
-    ResponseEntity<Movies> updateMovies(@Validated @RequestBody Movies movie) {
-        Movies result = movieRepository.save(movie);
+    ResponseEntity<Movie> updateMovies(@Validated @RequestBody Movie movie) {
+        Movie result = movieRepository.save(movie);
         return ResponseEntity.ok().body(result);
     }
     
